@@ -86,17 +86,74 @@ const CRITERES_EVALUATION = [
         description: "Performance optimisée"
       }
     ]
+  },
+  {
+    category: "Typographie & Lisibilité",
+    criteres: [
+      {
+        nom: "Hiérarchie typographique",
+        points: 8,
+        condition: ["h1", "h2", "h3", "h4", "h5", "h6"],
+        description: "Structure des titres claire"
+      },
+      {
+        nom: "Polices personnalisées",
+        points: 6,
+        condition: ["font-family", "@font-face"],
+        description: "Utilisation de polices personnalisées"
+      },
+      {
+        nom: "Taille de texte",
+        points: 6,
+        condition: ["font-size", "rem", "em"],
+        description: "Gestion des tailles de texte"
+      },
+      {
+        nom: "Espacement",
+        points: 5,
+        condition: ["line-height", "letter-spacing", "word-spacing"],
+        description: "Espacement optimal du texte"
+      }
+    ]
+  },
+  {
+    category: "Palette & Contraste",
+    criteres: [
+      {
+        nom: "Palette de couleurs",
+        points: 8,
+        condition: ["rgb", "rgba", "hsl", "hsla", "#"],
+        description: "Utilisation d'une palette de couleurs"
+      },
+      {
+        nom: "Variables CSS",
+        points: 7,
+        condition: ["var(--", ":root"],
+        description: "Système de design avec variables CSS"
+      },
+      {
+        nom: "Dégradés",
+        points: 5,
+        condition: ["gradient", "linear-gradient", "radial-gradient"],
+        description: "Utilisation de dégradés"
+      },
+       {
+        nom: "Mode sombre",
+        points: 5,
+        condition: ["@media (prefers-color-scheme:", "dark-mode", "theme-"],
+        description: "Support du mode sombre"
+      }
+    ]
   }
 ];
 
 export interface ScoreDetail {
-  category: string;    // Nom de la catégorie
-  score: number;       // Score obtenu
-  maxScore: number;    // Score maximum possible
-  details: string[];   // Détails de l'évaluation
+  category: string;    
+  score: number;       
+  maxScore: number;    
+  details: string[];   
 }
 
-// Fonction qui évalue si un critère est présent dans le HTML
 function evaluerCritere(html: string, condition: string | string[]): boolean {
   const htmlLower = html.toLowerCase();
   if (Array.isArray(condition)) {
@@ -105,7 +162,6 @@ function evaluerCritere(html: string, condition: string | string[]): boolean {
   return htmlLower.includes(condition.toLowerCase());
 }
 
-// Fonction principale d'évaluation
 export function calculateScoreDetails(html: string): ScoreDetail[] {
   return CRITERES_EVALUATION.map(categorie => {
     const details: string[] = [];
@@ -128,7 +184,6 @@ export function calculateScoreDetails(html: string): ScoreDetail[] {
   });
 }
 
-// Calcule le score total basé sur les détails
 export function calculateTotalScore(details: ScoreDetail[]): number {
   const totalMaxScore = details.reduce((sum, detail) => sum + detail.maxScore, 0);
   const totalScore = details.reduce((sum, detail) => sum + detail.score, 0);
