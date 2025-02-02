@@ -1,0 +1,69 @@
+from flask import Flask, render_template, request, jsonify
+import requests
+from bs4 import BeautifulSoup
+import re
+
+app = Flask(__name__)
+
+# Définition des critères et leur pondération
+CRITERIA = {
+    "hospitalite_communautaire": {
+        "forums": {"points": 10, "tag": "forum"},
+        "commentaires": {"points": 10, "tag": "comment"},
+        "blog": {"points": 8, "tag": "blog"},
+        "podcasts": {"points": 7, "tag": "podcast"},
+        "reseaux_sociaux": {"points": 10, "tag": "social"}
+    },
+    "hospitalite_relationnelle": {
+        "ux_writing": {"points": 10, "keywords": ["bienvenue", "joie", "facile", "expérience"]},
+        "service_client": {"points": 12, "tag": "contact"},
+        "faq_videos": {"points": 10, "tag": "faq"},
+        "micro_interactions": {"points": 8, "tag": "animation"}
+    },
+    "hospitalite_ergonomique": {
+        "design_accueillant": {"points": 10, "css": ["background-color", "font-family"]},
+        "navigation_intuitive": {"points": 12, "tag": "nav"},
+        "optimisation_vitesse": {"points": 10, "tag": "performance"}
+    }
+}
+
+def analyze_page(url):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, "html.parser")
+        text_content = soup.get_text().lower()
+
+        score = 0
+        details = {}
+
+        # Vérification des critères
+        for category, criteria in CRITERIA.items():
+            details[category] = {}
+            for critere, info in criteria.items():
+                if "tag" in info and soup.find_all(info["tag"]):
+                    score += info["points"]
+                    details[category][critere] = info["points"]
+                
+                if "keywords" in info:
+                    keyword_count = sum(1 for word in info["keywords"] if word in text_content)
+                    if keyword_count > 0:
+                        score += info["points"]
+                        details[category][critere] = info["points"]
+        
+        return {"score": min(100, score), "details": details}
+
+    except:
+        return {"error": "Impossible d'analyser cette page"}
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")
+
+@app.route("/analyze", methods=["POST"])
+def analyze():
+    url = request.form.get("url")
+    result = analyze_page(url)
+    return jsonify(result)
+
+if __name__ == "__main__":
+    app.run(debug=True)

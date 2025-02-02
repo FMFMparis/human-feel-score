@@ -15,11 +15,9 @@ export default function Results() {
   });
 
   const criteria = [
-    { name: "Typographie & Lisibilité", score: 20, description: "Évaluation de la hiérarchie du texte et de la lisibilité" },
-    { name: "Couleurs & Contraste", score: 20, description: "Évaluation des schémas de couleurs et du contraste visuel" },
-    { name: "Éléments Interactifs", score: 20, description: "Analyse des boutons, formulaires et composants interactifs" },
-    { name: "Présentation du Contenu", score: 20, description: "Revue de la mise en page et de la hiérarchie visuelle" },
-    { name: "Fonctionnalités d'Accessibilité", score: 20, description: "Évaluation de l'implémentation de l'accessibilité" }
+    { name: "Hospitalité Communautaire", score: 45, description: "Évaluation des espaces d'échange et de partage" },
+    { name: "Hospitalité Relationnelle", score: 40, description: "Analyse de l'accueil et de l'interaction utilisateur" },
+    { name: "Hospitalité Ergonomique", score: 32, description: "Évaluation du design et de la navigation" }
   ];
 
   return (
@@ -57,7 +55,7 @@ export default function Results() {
                     {criterion.description}
                   </p>
                 </div>
-                <Progress value={(criterion.score / 20) * 100} className="h-1.5" />
+                <Progress value={(criterion.score / 117) * 100} className="h-1.5" />
               </div>
             ))}
           </div>

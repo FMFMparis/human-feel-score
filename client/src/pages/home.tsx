@@ -7,16 +7,26 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { urlSchema } from "@/lib/validators";
-import { useLocation } from "wouter";
-import { Heart, User2, LineChart, Smile } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   url: urlSchema,
 });
 
+type AnalysisResult = {
+  score: number;
+  details: Array<{
+    category: string;
+    score: number;
+    maxScore: number;
+    details: string[];
+  }>;
+};
+
 export default function Home() {
-  const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const [result, setResult] = useState<AnalysisResult | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,7 +45,7 @@ export default function Home() {
       if (!res.ok) throw new Error("Failed to analyze URL");
 
       const data = await res.json();
-      setLocation(`/results?url=${encodeURIComponent(values.url)}&score=${data.score}`);
+      setResult(data);
     } catch (error) {
       toast({
         title: "Error",
@@ -47,79 +57,67 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="max-w-[1200px] mx-auto px-4">
-        <section className="pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="space-y-8 text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-light tracking-tight">
-              Interface Humanization Score
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto">
-              Évaluez le potentiel d'engagement émotionnel de votre interface web
-            </p>
-            <Card className="max-w-lg mx-auto bg-background border border-border/50">
-              <CardContent className="pt-6">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <FormField
-                      control={form.control}
-                      name="url"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <Input
-                              className="h-12 px-4 text-base"
-                              placeholder="Entrez l'URL du site (ex: https://example.com)"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full h-12 text-base font-light">
-                      Analyser l'interface
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+      <main className="max-w-[800px] mx-auto px-4 py-12">
+        <h1 className="text-4xl font-light text-center mb-8">
+          Testez l'humanisation de votre site
+        </h1>
 
-        <section className="py-24 md:py-32">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: Heart,
-                title: "Impact Émotionnel",
-                description: "Évaluez la connexion émotionnelle avec vos utilisateurs",
-              },
-              {
-                icon: User2,
-                title: "Engagement Utilisateur",
-                description: "Mesurez le potentiel d'interactions significatives",
-              },
-              {
-                icon: LineChart,
-                title: "Analyse Détaillée",
-                description: "Obtenez des insights complets sur votre score d'humanisation",
-              },
-              {
-                icon: Smile,
-                title: "Expérience Utilisateur",
-                description: "Comprenez l'impact de votre design sur la satisfaction",
-              },
-            ].map((feature, i) => (
-              <div key={i} className="group space-y-4 p-6">
-                <feature.icon className="w-8 h-8 text-muted-foreground/60 group-hover:text-foreground transition-colors" />
-                <h3 className="text-lg font-medium">{feature.title}</h3>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+        <Card className="mb-8">
+          <CardContent className="pt-6">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="url"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="h-12 px-4 text-base"
+                          placeholder="Entrez une URL..."
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full h-12 text-base font-light">
+                  Analyser
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+
+        {result && (
+          <div className="space-y-6">
+            <h2 className="text-3xl font-light text-center">
+              Score : {result.score}/100
+            </h2>
+
+            <div className="space-y-8">
+              <h3 className="text-2xl font-light">Détails</h3>
+              {result.details.map((category, index) => (
+                <div key={index} className="space-y-2">
+                  <h4 className="text-xl font-medium">{category.category}</h4>
+                  <p className="text-muted-foreground">
+                    Score: {category.score}/{category.maxScore}
+                  </p>
+                  {category.details.length > 0 && (
+                    <ul className="list-disc pl-5 space-y-1">
+                      {category.details.map((detail, i) => (
+                        <li key={i} className="text-muted-foreground">
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </section>
+        )}
       </main>
     </div>
   );

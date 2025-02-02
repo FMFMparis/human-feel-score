@@ -1,43 +1,92 @@
 // Configuration des critères d'évaluation
-// Vous pouvez modifier cette liste pour personnaliser vos critères
 const CRITERES_EVALUATION = [
   {
-    category: "Typographie & Lisibilité",
+    category: "Hospitalité Communautaire",
     criteres: [
       {
-        nom: "Titres principaux",
-        points: 4,
-        condition: '<h1',  // Le critère HTML ou CSS à rechercher
-        description: 'Utilisation de titres principaux'
+        nom: "Forums",
+        points: 10,
+        condition: "forum",
+        description: "Présence d'un espace forum"
       },
       {
-        nom: "Hiérarchie de titres",
-        points: 4,
-        condition: ['<h2', '<h3'],  // Vous pouvez utiliser un tableau pour plusieurs conditions
-        description: 'Hiérarchie de titres'
+        nom: "Commentaires",
+        points: 10,
+        condition: "comment",
+        description: "Système de commentaires"
       },
-      // Ajoutez ou modifiez vos critères ici
+      {
+        nom: "Blog",
+        points: 8,
+        condition: "blog",
+        description: "Section blog"
+      },
+      {
+        nom: "Podcasts",
+        points: 7,
+        condition: "podcast",
+        description: "Contenus audio/podcasts"
+      },
+      {
+        nom: "Réseaux sociaux",
+        points: 10,
+        condition: ["social", "twitter", "facebook", "linkedin", "instagram"],
+        description: "Intégration réseaux sociaux"
+      }
     ]
   },
   {
-    category: "Couleurs & Contraste",
+    category: "Hospitalité Relationnelle",
     criteres: [
       {
-        nom: "Couleurs personnalisées",
-        points: 5,
-        condition: 'color:',
-        description: 'Utilisation de couleurs personnalisées'
+        nom: "UX Writing",
+        points: 10,
+        condition: ["bienvenue", "joie", "facile", "expérience"],
+        description: "Langage accueillant et positif"
       },
       {
-        nom: "Couleurs de fond",
-        points: 5,
-        condition: 'background-color:',
-        description: 'Couleurs de fond personnalisées'
+        nom: "Service client",
+        points: 12,
+        condition: ["contact", "support", "aide", "chat"],
+        description: "Support client accessible"
       },
-      // Ajoutez ou modifiez vos critères ici
+      {
+        nom: "FAQ et Vidéos",
+        points: 10,
+        condition: ["faq", "video", "tutoriel"],
+        description: "Ressources d'aide"
+      },
+      {
+        nom: "Micro-interactions",
+        points: 8,
+        condition: ["animation", "transition", "hover"],
+        description: "Animations et interactions"
+      }
     ]
   },
-  // Ajoutez ou modifiez vos catégories ici
+  {
+    category: "Hospitalité Ergonomique",
+    criteres: [
+      {
+        nom: "Design accueillant",
+        points: 10,
+        condition: ["background-color", "font-family", "color"],
+        description: "Design visuel soigné"
+      },
+      {
+        nom: "Navigation intuitive",
+        points: 12,
+        condition: ["nav", "menu", "navigation"],
+        description: "Navigation claire"
+      },
+      {
+        nom: "Optimisation vitesse",
+        points: 10,
+        condition: ["lazy", "async", "defer"],
+        description: "Performance optimisée"
+      }
+    ]
+  }
 ];
 
 export interface ScoreDetail {
@@ -49,10 +98,11 @@ export interface ScoreDetail {
 
 // Fonction qui évalue si un critère est présent dans le HTML
 function evaluerCritere(html: string, condition: string | string[]): boolean {
+  const htmlLower = html.toLowerCase();
   if (Array.isArray(condition)) {
-    return condition.some(c => html.includes(c));
+    return condition.some(c => htmlLower.includes(c.toLowerCase()));
   }
-  return html.includes(condition);
+  return htmlLower.includes(condition.toLowerCase());
 }
 
 // Fonction principale d'évaluation
