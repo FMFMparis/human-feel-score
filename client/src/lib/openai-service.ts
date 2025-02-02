@@ -1,6 +1,5 @@
 import OpenAI from "openai";
 
-// the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export interface ToneAnalysis {
@@ -13,7 +12,7 @@ export interface ToneAnalysis {
 export async function analyzeTone(text: string): Promise<ToneAnalysis> {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
@@ -27,12 +26,12 @@ export async function analyzeTone(text: string): Promise<ToneAnalysis> {
       response_format: { type: "json_object" }
     });
 
-    const result = JSON.parse(response.choices[0].message.content);
+    const result = JSON.parse(response.choices[0].message.content || "{}");
     return {
-      tone: result.tone,
-      formality: Math.max(0, Math.min(1, result.formality)),
-      engagement: Math.max(0, Math.min(1, result.engagement)),
-      recommendations: result.recommendations
+      tone: result.tone || "Neutre",
+      formality: Math.max(0, Math.min(1, result.formality || 0.5)),
+      engagement: Math.max(0, Math.min(1, result.engagement || 0.5)),
+      recommendations: result.recommendations || []
     };
   } catch (error) {
     console.error('Error analyzing tone:', error);
