@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -8,7 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { urlSchema } from "@/lib/validators";
 import { useLocation } from "wouter";
-import { BarChart3, Heart, LineChart, Smile, User } from "lucide-react";
+import { Heart, User2, LineChart, Smile } from "lucide-react";
 
 const formSchema = z.object({
   url: urlSchema,
@@ -46,89 +46,78 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Interface Humanization Score
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                  Evaluate the emotional engagement potential of your web interface
-                </p>
-              </div>
-              <Card className="w-full max-w-lg">
-                <CardContent className="p-6">
-                  <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                      <FormField
-                        control={form.control}
-                        name="url"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <Input
-                                placeholder="Enter website URL (e.g., https://example.com)"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="submit" className="w-full" size="lg">
-                        Analyze Interface
-                      </Button>
-                    </form>
-                  </Form>
-                </CardContent>
-              </Card>
-            </div>
+    <div className="min-h-screen bg-background">
+      <main className="max-w-[1200px] mx-auto px-4">
+        <section className="pt-32 pb-16 md:pt-40 md:pb-20">
+          <div className="space-y-8 text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-light tracking-tight">
+              Interface Humanization Score
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto">
+              Évaluez le potentiel d'engagement émotionnel de votre interface web
+            </p>
+            <Card className="max-w-lg mx-auto bg-background border border-border/50">
+              <CardContent className="pt-6">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="url"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              className="h-12 px-4 text-base"
+                              placeholder="Entrez l'URL du site (ex: https://example.com)"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit" className="w-full h-12 text-base font-light">
+                      Analyser l'interface
+                    </Button>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <Heart className="w-8 h-8 text-primary mb-2" />
-                  <CardTitle>Emotional Impact</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  Measure how well your interface connects with users on an emotional level
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <User className="w-8 h-8 text-primary mb-2" />
-                  <CardTitle>User Engagement</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  Evaluate the potential for meaningful user interactions
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <BarChart3 className="w-8 h-8 text-primary mb-2" />
-                  <CardTitle>Detailed Analysis</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  Get comprehensive insights into your interface's humanization score
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Smile className="w-8 h-8 text-primary mb-2" />
-                  <CardTitle>User Experience</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  Understand how your design affects user satisfaction
-                </CardContent>
-              </Card>
-            </div>
+        <section className="py-24 md:py-32">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: Heart,
+                title: "Impact Émotionnel",
+                description: "Évaluez la connexion émotionnelle avec vos utilisateurs",
+              },
+              {
+                icon: User2,
+                title: "Engagement Utilisateur",
+                description: "Mesurez le potentiel d'interactions significatives",
+              },
+              {
+                icon: LineChart,
+                title: "Analyse Détaillée",
+                description: "Obtenez des insights complets sur votre score d'humanisation",
+              },
+              {
+                icon: Smile,
+                title: "Expérience Utilisateur",
+                description: "Comprenez l'impact de votre design sur la satisfaction",
+              },
+            ].map((feature, i) => (
+              <div key={i} className="group space-y-4 p-6">
+                <feature.icon className="w-8 h-8 text-muted-foreground/60 group-hover:text-foreground transition-colors" />
+                <h3 className="text-lg font-medium">{feature.title}</h3>
+                <p className="text-muted-foreground font-light leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
       </main>
