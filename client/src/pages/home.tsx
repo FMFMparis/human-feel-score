@@ -122,34 +122,36 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="space-y-6">
-              <h3 className="text-2xl font-light">Analyse de la Tonalité</h3>
+            {result.toneAnalysis && result.toneAnalysis.tone !== "Non disponible" && (
               <div className="space-y-6">
-                <div>
-                  <p className="text-lg mb-2">Ton général : {result.toneAnalysis.tone}</p>
-                </div>
-                <div className="space-y-4">
+                <h3 className="text-2xl font-light">Analyse de la Tonalité</h3>
+                <div className="space-y-6">
                   <div>
-                    <p className="text-muted-foreground mb-2">Niveau de formalité</p>
-                    <Progress value={result.toneAnalysis.formality * 100} className="h-2" />
+                    <p className="text-lg mb-2">Ton général : {result.toneAnalysis.tone}</p>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-muted-foreground mb-2">Niveau de formalité</p>
+                      <Progress value={result.toneAnalysis.formality * 100} className="h-2" />
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground mb-2">Niveau d'engagement</p>
+                      <Progress value={result.toneAnalysis.engagement * 100} className="h-2" />
+                    </div>
                   </div>
                   <div>
-                    <p className="text-muted-foreground mb-2">Niveau d'engagement</p>
-                    <Progress value={result.toneAnalysis.engagement * 100} className="h-2" />
+                    <h4 className="text-lg font-medium mb-2">Recommandations</h4>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {result.toneAnalysis.recommendations.map((rec, i) => (
+                        <li key={i} className="text-muted-foreground">
+                          {rec}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-                <div>
-                  <h4 className="text-lg font-medium mb-2">Recommandations</h4>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {result.toneAnalysis.recommendations.map((rec, i) => (
-                      <li key={i} className="text-muted-foreground">
-                        {rec}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </main>

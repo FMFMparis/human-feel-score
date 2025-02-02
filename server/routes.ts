@@ -22,20 +22,29 @@ export function registerRoutes(app: Express): Server {
       const dom = new JSDOM(html);
       const textContent = dom.window.document.body.textContent || "";
 
-      // Analyses parallèles
-      const [scoreDetails, toneAnalysis] = await Promise.all([
-        Promise.resolve(calculateScoreDetails(html)),
-        analyzeTone(textContent)
-      ]);
-
-      // Calcul du score total
+      // Calcul des scores techniques
+      const scoreDetails = calculateScoreDetails(html);
       const totalScore = calculateTotalScore(scoreDetails);
 
-      // Renvoie le score, les détails et l'analyse de tonalité
+      let toneAnalysis = null;
+      try {
+        // Tentative d'analyse de tonalité
+        toneAnalysis = await analyzeTone(textContent);
+      } catch (error) {
+        console.error('Error analyzing tone:', error);
+        // Continue without tone analysis
+      }
+
+      // Renvoie le score, les détails et l'analyse de tonalité si disponible
       res.json({ 
         score: totalScore,
         details: scoreDetails,
-        toneAnalysis
+        toneAnalysis: toneAnalysis || {
+          tone: "Non disponible",
+          formality: 0.5,
+          engagement: 0.5,
+          recommendations: ["L'analyse de tonalité n'est pas disponible pour le moment"]
+        }
       });
     } catch (error) {
       console.error('Analysis error:', error);
