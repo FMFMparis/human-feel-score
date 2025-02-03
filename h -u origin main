@@ -1,0 +1,111 @@
+[33mcommit b57ca2d5f35ee12d091c3e8793efa13d19bfadfe[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:54:05 2025 +0000
+
+    Agent query: I've updated the application to work without OpenAI API. Could you try analyzing a URL to see if you get the technical analysis results?
+    
+    Improve tone analysis display and handle potential errors.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/b485776e-7740-4896-9454-50d5ab808b64.jpg
+
+[33mcommit 0a9e1276955bccee20e0e5104bde5fc218e73c78[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:52:27 2025 +0000
+
+    Agent query: Pouvez-vous tester l'analyse d'une URL pour voir si elle fonctionne maintenant? Par exemple, essayez d'analyser 'https://example.com'
+    
+    Update OpenAI API model to gpt-3.5-turbo.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/0ce983e8-8906-4958-b525-2ad53e0e7c9b.jpg
+
+[33mcommit 9a377bee8cea201e50eb94429643be884a4fea16[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:50:04 2025 +0000
+
+    Agent query: J'ai corrigé l'erreur du modèle OpenAI. Pouvez-vous tester à nouveau l'analyse d'URL pour voir si ça fonctionne maintenant ?
+    
+    Update OpenAI model to gpt-4 and handle potential null values in tone analysis response.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/82f987d0-4fbe-4dee-8e99-f933507c23a6.jpg
+
+[33mcommit da6313b827173f6af4b2a0e5125523efac33c608[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:47:33 2025 +0000
+
+    Agent query: Est-ce que la page de résultats affiche maintenant l'analyse de tonalité avec GPT-4 en plus des scores techniques ?
+    
+    Add tone analysis feature using OpenAI API and enhance scoring details display.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/e1a500af-f37e-4701-8509-51b1b165282c.jpg
+
+[33mcommit e8627592542642a9d907713357e3b8ee6b5a687e[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:37:24 2025 +0000
+
+    Agent query: J'ai simplifié l'interface pour afficher les résultats directement sur la page d'accueil. Pouvez-vous vérifier si l'analyse d'URL et l'affichage des résultats fonctionnent correctement ?
+    
+    Refactor scoring system to evaluate website's emotional engagement using a new criteria based on community, relational, and ergonomic hospitality.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/5e3e0ab4-1e4b-48e9-a273-876d14913193.jpg
+
+[33mcommit 0b11353187c8324ac8ab417eec3de8914755bdcc[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:25:09 2025 +0000
+
+    Agent query: J'ai simplifié le système de scoring pour le rendre plus facile à personnaliser. Pouvez-vous vérifier si vous voyez maintenant un score quand vous analysez une URL ?
+    
+    Refactor scoring system to use configurable criteria for evaluation.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/9eec98d9-e36b-49e4-8880-bef42b115355.jpg
+
+[33mcommit b285116b71831077ac4496c736ed387b73e1fa37[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:24:01 2025 +0000
+
+    Agent query: Est-ce que le score s'affiche maintenant correctement lorsque vous analysez une URL ? Le score devrait être plus élevé qu'avant.
+    
+    Enhance scoring algorithm with detailed criteria for typography, colors, interactivity, presentation, and accessibility.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/38f98254-0c9b-4097-a4a2-61bc08fa8f10.jpg
+
+[33mcommit 128a684e452b2018631f5d8825c684b06bc3aab2[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:21:13 2025 +0000
+
+    Agent query: I've updated the scoring system. Could you try analyzing a website to see if it returns both the total score and detailed scores for each category?
+    
+    Implement basic website scoring functionality with detailed score breakdown and total score calculation.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/dd931aac-2f6c-4954-aa00-834ad9cdb1f5.jpg
+
+[33mcommit 2a822c1f54fac664911076d0f41adcacb514713a[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:19:32 2025 +0000
+
+    Agent query: J'ai mis à jour le design pour qu'il soit plus moderne et minimaliste, inspiré de Typology et Apple. Est-ce que le nouveau design vous convient ?
+    
+    Update UI and translate to French.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/1191cc3d-0614-4044-ac4c-4e3e861b9485.jpg
+
+[33mcommit 99b295af5219f519e9f9d51a7586af9ed52fee74[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:16:49 2025 +0000
+
+    Agent query: Can you see the homepage with a URL input form and four feature cards below it? Is the layout clear and well-organized?
+    
+    Add UI components and Replit configuration for project setup.
+    
+    Screenshot: https://storage.googleapis.com/screenshot-production-us-central1/9126cfed-2c7c-42e5-8628-ce67aa4e5670/346a6172-b4ab-4bd6-9b8f-34c099bc6684.jpg
+
+[33mcommit 92c514ce96ee758341ffd514a492b2076aead672[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:15:42 2025 +0000
+
+    Checkpoint after starting plan
+
+[33mcommit 8ee94c958784018fe862552a3e326f7a0a94c130[m
+Author: fredericmassond <39305682-fredericmassond@users.noreply.replit.com>
+Date:   Sun Feb 2 22:15:42 2025 +0000
+
+    Initial commit
